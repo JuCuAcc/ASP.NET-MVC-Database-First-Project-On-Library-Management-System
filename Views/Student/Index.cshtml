@@ -1,0 +1,118 @@
+﻿@model IEnumerable<Library_Mvc_Jashim.Models.Student>
+@{
+    ViewBag.Title = "Student Page";
+}
+
+<div class="container">
+    <h2>Student Record</h2>
+    <input type="button" class="btn btn-primary" id="addData" value="Add" onclick="AddData();" />
+    <br /><br />
+
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Member.MemberName)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.StudentGroup.GroupName)
+            </th>
+            <th>Action</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Member.MemberName)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentGroup.GroupName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditPartial", new { id = item.StudentID }) |
+                    @*@Html.ActionLink("Details", "Details", new { id = item.StudentID }) |*@
+                    @Html.ActionLink("Delete", "DeletePartial", new { id = item.StudentID })
+                </td>
+
+            </tr>
+        }
+    </table>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> Student Data</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script>
+        function AddData() {
+            $.post("@Url.Action("MyCreatePartial", "Student")",
+                function (data) {
+                    $('.modal-body').html(data);
+                });
+                $("#myModal").modal("show");
+        }
+
+        function GetbyID(StudentID) {
+            $.get("@Url.Action("GetByID", "Student")" ,
+                function (data) {
+                    $('.modal-body').html(data);
+                });
+                $("#myModal").modal("show");
+        }
+        function GetbyDelID(StudentID) {
+             $.get("@Url.Action("GetByDeleteID", "Student")" ,
+                function (data) {
+                    $('.modal-body').html(data);
+                });
+                $("#myModal").modal("show");
+        }
+
+        function EditData() {
+             $.post("@Url.Action("MyEditPartial", "Student")",
+                function (data) {
+                    $('.modal-body').html(data);
+                });
+                $("#myModal").modal("show");
+        }
+
+        function Delete(StudentID) {
+            $.post("@Url.Action("MyDeletePartial", "Student")" ,
+                function (data) {
+                   $('.modal-body').html(data);
+                });
+            $("#myModal").modal("show");
+        }
+    </script>
+}

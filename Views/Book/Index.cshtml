@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@model PagedList.IPagedList<Library_Mvc_Jashim.Models.Book>
+@using PagedList.Mvc;
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Book List</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+    <div class="container" style="margin-top: 20px;">
+        <h3>Books List</h3>
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table border="1" class="table table-bordered ">
+            <tr>
+
+                <th>BookID      </th>
+                <th>Title       </th>
+                <th>Author      </th>
+                <th>Description </th>
+                <th>CategoryID  </th>
+                <th>AddedTime   </th>
+
+            </tr>
+
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.BookID       </td>
+                    <td>@book.Title        </td>
+                    <td>@book.Author       </td>
+                    <td>@book.Description  </td>
+                    <td>@book.CategoryID   </td>
+                    <td>@book.AddedTime    </td>
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = book.BookID }, new { @class = "fa fa-pencil fa-lg" })  |
+                        @Html.ActionLink("Details", "Details", new { id = book.BookID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = book.BookID }, new { @class = "fa fa-trash fa-lg" })
+
+                    </td>
+                </tr>
+
+            }
+
+        </table>
+        <br />
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize }))
+        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Books
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+﻿@model Library_Mvc_Jashim.Models.Student
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add Student</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <h3>Add Student</h3>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GroupID)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.GroupID, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.GroupID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MemberID)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.MemberID, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MemberID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StudentName)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.StudentName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.StudentName)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Gender)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Gender, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Gender)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" class="btn btn-primary" onclick="AddData();" />
+        </p>
+    }
+</body>
+</html>
